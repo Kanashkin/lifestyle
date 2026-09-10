@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mental Lifestyle Development Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #07080e;
+    --bg2: #0d0f18;
+    --accent: #3a9ef8;
+    --accent2: #5ab0ff;
+    --accent-glow: rgba(58, 158, 248, 0.18);
+    --text: #eeeef4;
+    --muted: #8a8b99;
+    --card: #13151f;
+    --card2: #181b28;
+    --border: rgba(255,255,255,0.07);
+    --purple: #7b5cfa;
+    --teal: #30c9a0;
+    --coral: #f06b6b;
+    --gold: #f5c842;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(7, 8, 14, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-size: 17px; font-weight: 700; color: var(--text);
+    letter-spacing: -0.3px;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 14px;
+    font-weight: 500; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--accent); color: #fff;
+    padding: 9px 22px; border-radius: 10px;
+    text-decoration: none; font-size: 14px; font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(58,158,248,0.13) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(123,92,250,0.1) 0%, transparent 60%);
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 780px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(58,158,248,0.1);
+    border: 1px solid rgba(58,158,248,0.25);
+    border-radius: 100px;
+    padding: 6px 16px; font-size: 13px; color: var(--accent2);
+    font-weight: 500; margin-bottom: 32px;
+  }
+
+  .hero-badge::before {
+    content: ''; width: 7px; height: 7px;
+    background: var(--accent); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 900; line-height: 1.08;
+    letter-spacing: -2px; margin-bottom: 24px;
+  }
+
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--muted); max-width: 560px; margin: 0 auto 44px;
+    font-weight: 400; line-height: 1.65;
+  }
+
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    padding: 14px 32px; border-radius: 14px;
+    text-decoration: none; font-size: 16px; font-weight: 600;
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 0 32px rgba(58,158,248,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 48px rgba(58,158,248,0.45); }
+
+  .btn-secondary {
+    background: var(--card); color: var(--text);
+    padding: 14px 32px; border-radius: 14px;
+    text-decoration: none; font-size: 16px; font-weight: 600;
+    border: 1px solid var(--border);
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+  /* STATS */
+  .stats {
+    display: flex; justify-content: center; gap: 60px;
+    flex-wrap: wrap; padding: 60px 24px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat { text-align: center; }
+  .stat-num { font-size: 40px; font-weight: 800; color: var(--accent); letter-spacing: -1px; }
+  .stat-label { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+  /* SECTION */
+  section { padding: 100px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-badge {
+    display: inline-block;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800; letter-spacing: -1px; margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  .section-sub {
+    font-size: 18px; color: var(--muted); max-width: 520px; margin-bottom: 60px;
+    line-height: 1.65;
+  }
+
+  /* WHO WE ARE */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    align-items: center;
+  }
+
+  .about-text p {
+    color: var(--muted); font-size: 17px; line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .about-text p strong { color: var(--text); font-weight: 600; }
+
+  .about-visual {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px; padding: 40px;
+    position: relative; overflow: hidden;
+  }
+
+  .about-visual::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(58,158,248,0.15), transparent 70%);
+    pointer-events: none;
+  }
+
+  .sphere-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .sphere-item {
+    background: var(--card2); border-radius: 14px; padding: 16px;
+    border: 1px solid var(--border);
+  }
+
+  .sphere-icon { font-size: 22px; margin-bottom: 8px; }
+  .sphere-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .sphere-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* PRODUCTS */
+  .products { background: var(--bg2); }
+
+  .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .product-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 24px; padding: 44px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .product-card:hover { border-color: rgba(58,158,248,0.3); transform: translateY(-4px); }
+
+  .product-card.featured {
+    border-color: rgba(58,158,248,0.25);
+    background: linear-gradient(135deg, var(--card) 0%, rgba(58,158,248,0.05) 100%);
+  }
+
+  .product-tag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 100px; margin-bottom: 24px;
+  }
+
+  .tag-b2c { background: rgba(58,158,248,0.15); color: var(--accent2); }
+  .tag-b2b { background: rgba(123,92,250,0.15); color: #a089ff; }
+
+  .product-icon { font-size: 48px; margin-bottom: 20px; display: block; }
+
+  .product-card h3 {
+    font-size: 26px; font-weight: 800; margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .product-card p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+
+  .product-features { list-style: none; margin-bottom: 32px; }
+  .product-features li {
+    font-size: 14px; color: var(--muted); padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .product-features li:last-child { border-bottom: none; }
+  .product-features li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+
+  .product-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 600; color: var(--accent);
+    text-decoration: none; transition: gap 0.2s;
+  }
+  .product-cta:hover { gap: 12px; }
+
+  /* SEGMENTS */
+  .segments-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  .segment-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px;
+    transition: border-color 0.3s;
+  }
+  .segment-card:hover { border-color: rgba(255,255,255,0.15); }
+
+  .segment-icon { font-size: 32px; margin-bottom: 16px; }
+  .segment-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .segment-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* HOW IT WORKS */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: grid; grid-template-columns: 80px 1fr; gap: 32px;
+    padding: 40px 0; border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-size: 48px; font-weight: 900; color: var(--border);
+    letter-spacing: -2px; line-height: 1;
+  }
+
+  .step h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .step p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: linear-gradient(135deg, rgba(58,158,248,0.12) 0%, rgba(123,92,250,0.12) 100%);
+    border: 1px solid rgba(58,158,248,0.2);
+    border-radius: 28px; padding: 72px 60px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+
+  .cta-banner h2 { margin-bottom: 16px; }
+  .cta-banner p { color: var(--muted); font-size: 18px; margin-bottom: 40px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 24px;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .footer-logo { font-size: 15px; font-weight: 700; }
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+  .footer-links a:hover { color: var(--text); }
+
+  .footer-copy { color: var(--muted); font-size: 13px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .about-grid, .products-grid { grid-template-columns: 1fr; }
+    .segments-grid { grid-template-columns: 1fr; }
+    .stats { gap: 32px; }
+    .cta-banner { padding: 48px 28px; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Mental<span>Lifestyle</span></div>
+  <div class="nav-links">
+    <a href="#about">О нас</a>
+    <a href="#products">Продукты</a>
+    <a href="#segments">Клиенты</a>
+    <a href="#contact">Контакты</a>
+  </div>
+  <a href="#products" class="nav-cta">Начать →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Mental Lifestyle Development Consultancy</div>
+    <h1>Устойчивость —<br>это <em>система,</em><br>а не случайность</h1>
+    <p class="hero-sub">
+      Мы помогаем людям и компаниям выстраивать ментальное здоровье, 
+      энергию и фокус через научно обоснованные методики и технологии AI.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">📱 Скачать MSS App</a>
+      <a href="https://msscorporate.mental-lifestyle.com/" class="btn-secondary" target="_blank" rel="noopener">Для бизнеса →</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Сфер жизни в системе</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">AI</div>
+    <div class="stat-label">Персональная диагностика</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">B2C</div>
+    <div class="stat-label">Мобильное приложение</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">B2B</div>
+    <div class="stat-label">Корпоративная платформа</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <span class="section-badge">О компании</span>
+        <h2>Мы строим системы ментального здоровья</h2>
+        <p>
+          <strong>Mental Lifestyle Development Consultancy</strong> — это консалтинговая компания 
+          в сфере ментального благополучия, основанная в ОАЭ.
+        </p>
+        <p>
+          Мы верим, что ментальная устойчивость — это навык, который можно развить. 
+          Наша методика объединяет <strong>современную психологию, AI-технологии</strong> 
+          и персональный подход, чтобы каждый человек и каждая команда могли работать 
+          на пике своих возможностей.
+        </p>
+        <p>
+          Мы работаем как с <strong>частными лицами</strong> — через мобильное приложение MSS — 
+          так и с <strong>компаниями</strong>, помогая выстраивать культуру ментального здоровья 
+          на уровне организации.
+        </p>
+      </div>
+      <div class="about-visual">
+        <div class="sphere-grid">
+          <div class="sphere-item">
+            <div class="sphere-icon">⚡</div>
+            <div class="sphere-name">Энергия</div>
+            <div class="sphere-desc">Физическое состояние и ресурс</div>
+          </div>
+          <div class="sphere-item">
+            <div class="sphere-icon">❤️</div>
+            <div class="sphere-name">Эмоции</div>
+            <div class="sphere-desc">Эмоциональный баланс</div>
+          </div>
+          <div class="sphere-item">
+            <div class="sphere-icon">🎯</div>
+            <div class="sphere-name">Фокус</div>
+            <div class="sphere-desc">Продуктивность и концентрация</div>
+          </div>
+          <div class="sphere-item">
+            <div class="sphere-icon">👤</div>
+            <div class="sphere-name">Самооценка</div>
+            <div class="sphere-desc">Уверенность и границы</div>
+          </div>
+          <div class="sphere-item">
+            <div class="sphere-icon">🤝</div>
+            <div class="sphere-name">Отношения</div>
+            <div class="sphere-desc">Качество связей</div>
+          </div>
+          <div class="sphere-item">
+            <div class="sphere-icon">🚀</div>
+            <div class="sphere-name">Реализация</div>
+            <div class="sphere-desc">Цели и прогресс</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="products">
+  <div class="container">
+    <span class="section-badge">Продукты</span>
+    <h2>Два продукта.<br>Один результат.</h2>
+    <p class="section-sub">Персональный рост для людей и системное благополучие для компаний.</p>
+
+    <div class="products-grid">
+      <!-- B2C -->
+      <div class="product-card featured">
+        <span class="product-tag tag-b2c">B2C · Мобильное</span>
+        <span class="product-icon">📱</span>
+        <h3>MSS App</h3>
+        <p>
+          Mental Stability System — персональный AI-психолог в вашем кармане. 
+          Диагностика состояния, персональный план практик и ежедневные задания 
+          по методике психолога Тимура Айкенова.
+        </p>
+        <ul class="product-features">
+          <li>AI-диагностика через разговор</li>
+          <li>Колесо баланса по 6 сферам</li>
+          <li>Персональный план на каждую неделю</li>
+          <li>Дневник состояния с AI-анализом</li>
+          <li>Пуш-уведомления и напоминания</li>
+          <li>7 дней бесплатно</li>
+        </ul>
+        <a href="https://apps.apple.com/app/mss/id6790786607" target="_blank" rel="noopener" class="product-cta">Скачать в App Store →</a>
+      </div>
+
+      <!-- B2B -->
+      <div class="product-card">
+        <span class="product-tag tag-b2b">B2B · Корпоративное</span>
+        <span class="product-icon">🏢</span>
+        <h3>MSS для бизнеса</h3>
+        <p>
+          Корпоративная веб-платформа для HR и руководителей. 
+          Мониторинг ментального состояния команды, снижение выгорания 
+          и повышение вовлечённости сотрудников.
+        </p>
+        <ul class="product-features">
+          <li>Анонимная оценка состояния команды</li>
+          <li>Аналитика и отчёты для HR</li>
+          <li>Групповые практики и воркшопы</li>
+          <li>Интеграция с корпоративными системами</li>
+          <li>Персональный менеджер</li>
+          <li>Пилот для команды бесплатно</li>
+        </ul>
+        <a href="mailto:timur@mental-lifestyle.com" class="product-cta">Запросить демо →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTS -->
+<section id="segments">
+  <div class="container">
+    <span class="section-badge">Клиенты</span>
+    <h2>Кому мы помогаем</h2>
+    <p class="section-sub">От частных лиц до корпораций — наша методика работает на любом уровне.</p>
+
+    <div class="segments-grid">
+      <div class="segment-card">
+        <div class="segment-icon">🧑‍💼</div>
+        <h3>Предприниматели</h3>
+        <p>Управляете бизнесом и командой на пределе сил? MSS поможет восстановить энергию, снизить тревогу и принимать решения с ясной головой.</p>
+      </div>
+      <div class="segment-card">
+        <div class="segment-icon">💼</div>
+        <h3>Топ-менеджеры</h3>
+        <p>Высокая нагрузка, постоянные решения, ответственность. Наш метод помогает удерживать фокус и избегать выгорания даже в условиях стресса.</p>
+      </div>
+      <div class="segment-card">
+        <div class="segment-icon">👩‍💻</div>
+        <h3>Специалисты</h3>
+        <p>Чувствуете усталость и потерю мотивации? Система практик вернёт вам энергию и помжет выстроить здоровые границы между работой и жизнью.</p>
+      </div>
+      <div class="segment-card">
+        <div class="segment-icon">🏢</div>
+        <h3>Компании</h3>
+        <p>Снижение выгорания команды на 40%, рост вовлечённости и производительности. Корпоративная платформа MSS — инвестиция в главный актив бизнеса.</p>
+      </div>
+      <div class="segment-card">
+        <div class="segment-icon">🏥</div>
+        <h3>HR и L&D</h3>
+        <p>Измеримые результаты по ментальному здоровью команды, аналитика и отчёты для руководства. Инструмент, который HR будет использовать ежедневно.</p>
+      </div>
+      <div class="segment-card">
+        <div class="segment-icon">✨</div>
+        <h3>Все, кто хочет больше</h3>
+        <p>Ментальная устойчивость нужна каждому. Если вы хотите жить осознаннее, иметь больше энергии и чувствовать себя лучше — MSS для вас.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="background: var(--bg2);">
+  <div class="container">
+    <span class="section-badge">Как это работает</span>
+    <h2>От диагностики до результата</h2>
+    <p class="section-sub">Четыре шага к ментальной устойчивости.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Диагностика через разговор с AI</h3>
+          <p>AI-ассистент задаёт вопросы о вашем образе жизни, работе, отдыхе и состоянии. Никаких сухих тестов — живой диалог, который понимает контекст именно вашей жизни.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <h3>Оценка по колесу баланса</h3>
+          <p>Получаете персональную карту состояния по 6 ключевым сферам жизни. Сразу видите, где дефицит, а где всё держится.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Персональный план практик</h3>
+          <p>На основе диагностики система строит план заданий на каждую неделю. Короткие практики, которые реально встроить в расписание.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <h3>Прогресс и переоценка</h3>
+          <p>Каждую неделю система переоценивает ваше состояние и адаптирует план. Вы видите динамику и реальные изменения.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="container">
+    <div class="cta-banner">
+      <h2>Готовы начать?</h2>
+      <p>Попробуйте MSS бесплатно или запросите демо для вашей компании.</p>
+      <div class="hero-actions">
+        <a href="https://apps.apple.com/app/mss/id6790786607" target="_blank" rel="noopener" class="btn-primary">📱 Скачать MSS App</a>
+        <a href="mailto:timur@mental-lifestyle.com" class="btn-secondary">✉️ Написать нам</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Mental<span>Lifestyle</span> Development Consultancy</div>
+  <div class="footer-links">
+    <a href="#about">О нас</a>
+    <a href="#products">Продукты</a>
+    <a href="mailto:timur@mental-lifestyle.com">Контакты</a>
+    <a href="#">Политика конфиденциальности</a>
+  </div>
+  <div class="footer-copy">© 2026 Mental Lifestyle Development Consultancy FZ-LLC</div>
+</footer>
+
+</body>
+</html>
